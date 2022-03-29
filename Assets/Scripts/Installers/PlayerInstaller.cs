@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using System;
+using CoreComponents;
 
 public class PlayerInstaller : MonoInstaller
 {
@@ -24,6 +25,9 @@ public class PlayerInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<PlayerDashHandler>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<PlayerAttackHandler>().AsSingle().WithArguments(_settings.AttackPoint, _settings.CinemechineShake);
+
+        Container.Bind<CinemechineShake>().FromInstance(_settings.CinemechineShake);
+        Container.Bind<HealthPoint>().FromInstance(_settings.HealthPoint);
     }
 
     [Serializable]
@@ -33,6 +37,7 @@ public class PlayerInstaller : MonoInstaller
         public CapsuleCollider2D Collider2D = null;
         public Animator Animator = null;
         public CinemechineShake CinemechineShake = null;
+        public HealthPoint HealthPoint = null;
 
         [Space(10)]
         public Transform FootTrans = null;

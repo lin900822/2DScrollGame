@@ -18,6 +18,8 @@ public class PlayerModel
         _animator = animator;
     }
 
+    public Animator Animator => _animator;
+
     public Transform Transform => _rigidbody2D.transform;
 
     public Vector2 Position
@@ -53,10 +55,4 @@ public class PlayerModel
         _collider2D.size = new Vector2(1, 2);
         _collider2D.direction = CapsuleDirection2D.Vertical;
     }
-
-    public void AnimatorSetBool(string boolName, bool value) => _animator.SetBool(boolName, value);
-
-    public void AnimatorSetTrigger(string triggerName) => _animator.SetTrigger(triggerName);
-
-    public void AnimatorSetFloat(string floatName, float value) => _animator.SetFloat(floatName, value);
 }

@@ -61,7 +61,7 @@ public class PlayerAttackHandler : ITickable
 
     void NormalAttack()
     {
-        _playerModel.AnimatorSetTrigger("Attack");
+        _playerModel.Animator.SetTrigger("Attack");
         bool hasGivenDamage = GiveDamage(_settings.NormalDamage);
 
         if (hasGivenDamage)
@@ -70,7 +70,7 @@ public class PlayerAttackHandler : ITickable
 
     void SpecialAttack()
     {
-        _playerModel.AnimatorSetTrigger("Strike");
+        _playerModel.Animator.SetTrigger("Strike");
         bool hasGivenDamage = GiveDamage(_settings.SpecialDamage);
 
         if (hasGivenDamage)
@@ -82,7 +82,14 @@ public class PlayerAttackHandler : ITickable
         Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(_attackPoint.position, _settings.AttackRange, _settings.EnemyLayer);
 
         for (int i = 0; i < enemyColliders.Length; i++)
-            enemyColliders[i].GetComponent<HealthPoint>().TakeDamage(_playerModel.Transform, damage);
+        {
+            IDamagable damagable = null;
+
+            if (enemyColliders[i].gameObject.TryGetComponent<IDamagable>(out damagable))
+            {
+                damagable.TakeDamage(_playerModel.Transform, damage);
+            }
+        }
 
         if (enemyColliders.Length >= 1)
             return true;

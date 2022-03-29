@@ -7,8 +7,6 @@ namespace CoreComponents
 {
     public class HealthPoint : MonoBehaviour
     {
-        public event Action<Transform> OnDamaged = null;
-
         public float HP => hp;
 
         [SerializeField] float hp = 0f;
@@ -22,7 +20,6 @@ namespace CoreComponents
         public void TakeDamage(Transform atkTrans, float damage)
         {
             hp -= damage;
-            OnDamaged?.Invoke(atkTrans);
         }
     }
 }

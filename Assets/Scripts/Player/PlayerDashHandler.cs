@@ -26,13 +26,13 @@ public class PlayerDashHandler : ITickable
 
     void Dash()
     {
-        _playerModel.AnimatorSetBool("isDash", true);
+        _playerModel.Animator.SetBool("isDash", true);
         _playerModel.Dash();
     }
 
     void EndDash()
     {
-        _playerModel.AnimatorSetBool("isDash", false);
+        _playerModel.Animator.SetBool("isDash", false);
         _playerModel.EndDash();
     }
 }

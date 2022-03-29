@@ -30,11 +30,11 @@ public class PlayerJumpHandler : ITickable
         {
             if (_inputState.IsJumping) Jump();
 
-            _playerModel.AnimatorSetBool("isJump", false);
+            _playerModel.Animator.SetBool("isJump", false);
         }
         else
         {
-            _playerModel.AnimatorSetBool("isJump", true);
+            _playerModel.Animator.SetBool("isJump", true);
         }
     }
 
