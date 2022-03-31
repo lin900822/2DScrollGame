@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9170918814790915283}
   - component: {fileID: 9170918814790915282}
   - component: {fileID: 9170918814790915281}
-  - component: {fileID: 5804255706123979843}
+  - component: {fileID: 546604959120514097}
   m_Layer: 0
-  m_Name: Enemy Die Effect
+  m_Name: Die Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4805,7 +4805,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &5804255706123979843
+--- !u!114 &546604959120514097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4814,7 +4814,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9170918814790915280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73e2e283068fb64aa237c84b2504e98, type: 3}
+  m_Script: {fileID: 11500000, guid: a022bf3c7f276644a9dc46a339df09ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 5
+  _lifeTime: 5
+  _particleSystem: {fileID: 9170918814790915282}

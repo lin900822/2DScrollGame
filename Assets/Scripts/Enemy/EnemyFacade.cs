@@ -8,13 +8,19 @@ public class EnemyFacade : MonoBehaviour, IDamagable
     EnemyModel _enemyModel = null;
     EnemyStateManager _stateManager = null;
     HealthPoint _healthPoint = null;
+    DeathEffect.Factory _deathEffectFactory = null;
 
     [Inject]
-    public void Construct(EnemyModel playerModel, EnemyStateManager stateManager, HealthPoint healthPoint)
+    public void Construct(
+        EnemyModel playerModel,
+        EnemyStateManager stateManager,
+        HealthPoint healthPoint,
+        DeathEffect.Factory deathEffectFactory)
     {
         _enemyModel = playerModel;
         _stateManager = stateManager;
         _healthPoint = healthPoint;
+        _deathEffectFactory = deathEffectFactory;
     }
 
     private void Update()
@@ -50,6 +56,8 @@ public class EnemyFacade : MonoBehaviour, IDamagable
 
     void Die()
     {
+        DeathEffect deathEffect = _deathEffectFactory.Create();
+        deathEffect.transform.position = transform.position;
         Destroy(this.gameObject);
     }
 

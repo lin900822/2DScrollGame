@@ -2510,6 +2510,7 @@ GameObject:
   - component: {fileID: 1169469188}
   - component: {fileID: 1169469190}
   - component: {fileID: 1169469191}
+  - component: {fileID: 1169469192}
   m_Layer: 5
   m_Name: Game Over Panel
   m_TagString: Untagged
@@ -2602,6 +2603,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1169469190}
+  animator: {fileID: 1169469192}
+--- !u!95 &1169469192
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169469186}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb9bcf9d581d8644c8a9945b84c3abfe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1191008785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,7 +2778,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231238121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7998788, y: 4.0394006, z: -10}
+  m_LocalPosition: {x: 1.7998788, y: 4.714469, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2119920650}
@@ -6726,10 +6747,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 26.819279, y: 2.0475016}
-      - {x: -2.4053268, y: 2.0499535}
-      - {x: -2.4379363, y: 0.5650103}
-      - {x: 26.702732, y: 0.6453388}
+    - - {x: 30, y: 2}
+      - {x: -2, y: 2}
+      - {x: 30, y: 2.1}
+      - {x: -2, y: 2.1}
 --- !u!4 &2068018884
 Transform:
   m_ObjectHideFlags: 0

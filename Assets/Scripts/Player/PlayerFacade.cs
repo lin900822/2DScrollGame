@@ -10,18 +10,21 @@ public class PlayerFacade : MonoBehaviour, IDamagable
     HealthPoint _healthPoint = null;
     CinemechineShake _cinemechineShake = null;
     SignalBus _signalBus = null;
+    DeathEffect.Factory _deathEffectFactory = null;
 
     [Inject]
     public void Construct(
         PlayerModel playerModel,
         HealthPoint healthPoint,
         CinemechineShake cinemechineShake,
-        SignalBus signalBus)
+        SignalBus signalBus,
+        DeathEffect.Factory deathEffectFactory)
     {
         _playerModel = playerModel;
         _healthPoint = healthPoint;
         _cinemechineShake = cinemechineShake;
         _signalBus = signalBus;
+        _deathEffectFactory = deathEffectFactory;
     }
 
     private void Update()
@@ -45,15 +48,11 @@ public class PlayerFacade : MonoBehaviour, IDamagable
 
     void Die()
     {
-        _playerModel.Animator.SetTrigger("Die");
-
         _signalBus.Fire<PlayerDiedSignal>();
 
-        Invoke(nameof(SetSelfInActive), .5f);
-    }
+        DeathEffect deathEffect = _deathEffectFactory.Create();
+        deathEffect.transform.position = transform.position;
 
-    void SetSelfInActive()
-    {
         this.gameObject.SetActive(false);
     }
 

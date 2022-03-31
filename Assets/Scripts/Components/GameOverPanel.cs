@@ -7,6 +7,7 @@ public class GameOverPanel : MonoBehaviour
 {
     SignalBus _signalBus = null;
     [SerializeField] CanvasGroup canvasGroup = null;
+    [SerializeField] Animator animator = null;
 
     [Inject]
     public void Construct(
@@ -30,7 +31,11 @@ public class GameOverPanel : MonoBehaviour
 
     void HandlePlayerDied()
     {
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
+        Invoke(nameof(ShowPanel), .5f);
+    }
+
+    void ShowPanel()
+    {
+        animator.SetTrigger("Enter");
     }
 }

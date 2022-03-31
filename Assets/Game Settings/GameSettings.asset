@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a611d3b1c0d2d4b48bbf0c044c424aac, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  GamePlaySettings:
+    DeathEffectPrefab: {fileID: 9170918814790915280, guid: ded348723f4c26249b902e86f7fa2aba, type: 3}
   PlayerModelSettings:
     MaxHP: 100
   PlayerMovementSettings:
@@ -36,5 +38,5 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 256
     DetectTargetRadius: 5
-    AttackDamage: 250
+    AttackDamage: 25
     deathEffectPrefab: {fileID: 0}
