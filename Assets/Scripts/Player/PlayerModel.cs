@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerModel
 {
     private readonly Rigidbody2D _rigidbody2D = null;
     private readonly CapsuleCollider2D _collider2D = null;
     private readonly Animator _animator = null;
+
+    public bool _isHurt = false;
 
     public PlayerModel(
         Rigidbody2D rigidbody2D,
@@ -16,6 +19,12 @@ public class PlayerModel
         _rigidbody2D = rigidbody2D;
         _collider2D = collider2D;
         _animator = animator;
+    }
+
+    public bool IsHurt
+    {
+        get => _isHurt;
+        set => _isHurt = value;
     }
 
     public Animator Animator => _animator;
@@ -54,5 +63,11 @@ public class PlayerModel
         _collider2D.offset = new Vector2(0.06f, -0.67f);
         _collider2D.size = new Vector2(1, 2);
         _collider2D.direction = CapsuleDirection2D.Vertical;
+    }
+
+    [Serializable]
+    public class Settings
+    {
+        public float MaxHP = 100f;
     }
 }

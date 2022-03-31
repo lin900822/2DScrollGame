@@ -10,7 +10,7 @@ public class PlayerInstaller : MonoInstaller
 
     [Space(10)]
     [SerializeField]
-    GameSettingInstaller gameSetting = null;
+    GameSettingInstaller _gameSetting = null;
 
     public override void InstallBindings()
     {
@@ -27,7 +27,8 @@ public class PlayerInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<PlayerAttackHandler>().AsSingle().WithArguments(_settings.AttackPoint, _settings.CinemechineShake);
 
         Container.Bind<CinemechineShake>().FromInstance(_settings.CinemechineShake);
-        Container.Bind<HealthPoint>().FromInstance(_settings.HealthPoint);
+        Container.Bind<HealthPoint>().FromInstance(_settings.HealthPoint).AsSingle();
+        _settings.HealthPoint.MaxHP = _gameSetting.PlayerModelSettings.MaxHP;
     }
 
     [Serializable]
@@ -49,9 +50,9 @@ public class PlayerInstaller : MonoInstaller
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(_settings.FootTrans.position, gameSetting.PlayerJumpSettings.DetectFloorRange);
+        Gizmos.DrawWireSphere(_settings.FootTrans.position, _gameSetting.PlayerJumpSettings.DetectFloorRange);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_settings.AttackPoint.position, gameSetting.PlayerAttackSettings.AttackRange);
+        Gizmos.DrawWireSphere(_settings.AttackPoint.position, _gameSetting.PlayerAttackSettings.AttackRange);
     }
 }

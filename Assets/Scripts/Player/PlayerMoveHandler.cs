@@ -10,8 +10,6 @@ public class PlayerMoveHandler : IFixedTickable
     readonly PlayerInputState _inputState;
     readonly Settings _settings;
 
-    public bool IsHurt = false;
-
     public PlayerMoveHandler(
         PlayerModel playerModel,
         PlayerInputState inputState,
@@ -31,7 +29,7 @@ public class PlayerMoveHandler : IFixedTickable
 
     void Move()
     {
-        if(!IsHurt)
+        if(!_playerModel.IsHurt)
             _playerModel.Velocity = new Vector2(_inputState.HorizontalAxis * _settings.MoveSpeed, _playerModel.Velocity.y);
     }
 
@@ -45,7 +43,7 @@ public class PlayerMoveHandler : IFixedTickable
 
     void SetFaceDirection()
     {
-        if (IsHurt) return;
+        if (_playerModel.IsHurt) return;
 
         if (_playerModel.Velocity.x < -0.1f)
             _playerModel.LocalScale = new Vector3(-1f, 1f, 1f);

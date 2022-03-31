@@ -7,37 +7,75 @@ using Zenject;
 public class PlayerFacade : MonoBehaviour, IDamagable
 {
     PlayerModel _playerModel = null;
-    PlayerMoveHandler _playerMoveHandler = null;
     HealthPoint _healthPoint = null;
     CinemechineShake _cinemechineShake = null;
+    SignalBus _signalBus = null;
 
     [Inject]
-    public void Construct(PlayerModel playerModel, PlayerMoveHandler playerMoveHandler, HealthPoint healthPoint, CinemechineShake cinemechineShake)
+    public void Construct(
+        PlayerModel playerModel,
+        HealthPoint healthPoint,
+        CinemechineShake cinemechineShake,
+        SignalBus signalBus)
     {
         _playerModel = playerModel;
-        _playerMoveHandler = playerMoveHandler;
         _healthPoint = healthPoint;
         _cinemechineShake = cinemechineShake;
+        _signalBus = signalBus;
+    }
+
+    private void Update()
+    {
+        if (transform.position.y <= -10f) Die();
     }
 
     public void TakeDamage(Transform attackTranform, float damageValue)
     {
         _healthPoint.TakeDamage(attackTranform, damageValue);
+        _signalBus.Fire(new PlayerHPChangedSignal() { HP = _healthPoint.HP, MaxHP = _healthPoint.MaxHP });
 
-        Vector2 atkDirection = attackTranform.position - transform.position;
+        if (_healthPoint.HP <= 0) Die();
 
-        int damageDirection = atkDirection.x > 0 ? 1 : -1;
+        int damageDirectionX = CalculateDamageDirectionX(attackTranform, transform);
+        Hurt(damageDirectionX);
 
-        _playerModel.AddForce(new Vector2(-damageDirection, 1) * 8f, ForceMode2D.Impulse);
+        _playerModel.IsHurt = true;
+        Invoke(nameof(ResetHurt), .5f);
+    }
+
+    void Die()
+    {
+        _playerModel.Animator.SetTrigger("Die");
+
+        _signalBus.Fire<PlayerDiedSignal>();
+
+        Invoke(nameof(SetSelfInActive), .5f);
+    }
+
+    void SetSelfInActive()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    int CalculateDamageDirectionX(Transform attackTranform, Transform selfTransform)
+    {
+        Vector2 atkDirection = attackTranform.position - selfTransform.position;
+
+        int damageDirectionX = atkDirection.x > 0 ? 1 : -1;
+
+        return damageDirectionX;
+    }
+
+    void Hurt(int damageDirection)
+    {
+        _playerModel.Animator.SetTrigger("Hurt");
+        _playerModel.AddForce(new Vector2(-damageDirection, 0.1f) * 3f, ForceMode2D.Impulse);
 
         _cinemechineShake.Shake(CinemechineShakeType.Normal);
-
-        _playerMoveHandler.IsHurt = true;
-        Invoke(nameof(ResetHurt), .5f);
     }
 
     void ResetHurt()
     {
-        _playerMoveHandler.IsHurt = false;
+        _playerModel.IsHurt = false;
     }
 }

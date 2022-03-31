@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a611d3b1c0d2d4b48bbf0c044c424aac, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  PlayerModelSettings:
+    MaxHP: 100
   PlayerMovementSettings:
     MoveSpeed: 5
   PlayerJumpSettings:
@@ -34,4 +36,5 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 256
     DetectTargetRadius: 5
-    AttackDamage: 10
+    AttackDamage: 250
+    deathEffectPrefab: {fileID: 0}

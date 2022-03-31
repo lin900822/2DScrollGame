@@ -7,19 +7,19 @@ namespace CoreComponents
 {
     public class HealthPoint : MonoBehaviour
     {
-        public float HP => hp;
-
-        [SerializeField] float hp = 0f;
-        [SerializeField] float maxHP = 100f;
+        public float HP = 0f;
+        public float MaxHP = 100f;
 
         private void Start()
         {
-            hp = maxHP;
+            HP = MaxHP;
         }
 
         public void TakeDamage(Transform atkTrans, float damage)
         {
-            hp -= damage;
+            HP -= damage;
+
+            if (HP <= 0) HP = 0;
         }
     }
 }

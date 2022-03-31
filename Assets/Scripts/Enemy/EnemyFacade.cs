@@ -7,26 +7,50 @@ public class EnemyFacade : MonoBehaviour, IDamagable
 {
     EnemyModel _enemyModel = null;
     EnemyStateManager _stateManager = null;
-    [SerializeField] HealthPoint healthPoint = null;
+    HealthPoint _healthPoint = null;
 
     [Inject]
-    public void Construct(EnemyModel playerModel, EnemyStateManager stateManager)
+    public void Construct(EnemyModel playerModel, EnemyStateManager stateManager, HealthPoint healthPoint)
     {
         _enemyModel = playerModel;
         _stateManager = stateManager;
+        _healthPoint = healthPoint;
+    }
+
+    private void Update()
+    {
+        if (transform.position.y <= -10f) Die();
     }
 
     public void TakeDamage(Transform attackTranform, float damageValue)
     {
-        healthPoint.TakeDamage(attackTranform, damageValue);
+        _healthPoint.TakeDamage(attackTranform, damageValue);
 
+        if(_healthPoint.HP <= 0) Die();
+
+        int damageDirectionX = CalculateDamageDirectionX(attackTranform, transform);
+
+        Hurt(damageDirectionX);
+    }
+
+    int CalculateDamageDirectionX(Transform attackTranform, Transform selfTransform)
+    {
+        Vector2 atkDirection = attackTranform.position - selfTransform.position;
+
+        int damageDirectionX = atkDirection.x > 0 ? 1 : -1;
+
+        return damageDirectionX;
+    }
+
+    void Hurt(int damageDirectionX)
+    {
         _stateManager.ChangeState(EnemyStateManager.States.Hurt);
+        _enemyModel.AddForce(new Vector2(-damageDirectionX, 1) * 10f, ForceMode2D.Impulse);
+    }
 
-        Vector2 atkDirection = attackTranform.position - transform.position;
-
-        int damageDirection = atkDirection.x > 0 ? 1 : -1;
-
-        _enemyModel.AddForce(new Vector2(-damageDirection, 1) * 10f, ForceMode2D.Impulse);
+    void Die()
+    {
+        Destroy(this.gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

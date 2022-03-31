@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using System;
+using CoreComponents;
 
 public class EnemyInstaller : MonoInstaller
 {
@@ -16,6 +17,8 @@ public class EnemyInstaller : MonoInstaller
         Container.Bind<EnemyStateWalk>().AsSingle();
         Container.Bind<EnemyStateRun>().AsSingle();
         Container.Bind<EnemyStateHurt>().AsSingle();
+
+        Container.Bind<HealthPoint>().FromInstance(_settings.HealthPoint).AsSingle();
     }
 
     [Serializable]
@@ -23,5 +26,6 @@ public class EnemyInstaller : MonoInstaller
     {
         public Rigidbody2D Rigidbody2D = null;
         public Animator Animator = null;
+        public HealthPoint HealthPoint = null;
     }
 }

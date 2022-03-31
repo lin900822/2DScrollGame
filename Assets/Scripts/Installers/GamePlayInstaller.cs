@@ -7,5 +7,9 @@ public class GamePlayInstaller : MonoInstaller
     {
         Container.Bind<IUserInput>().To<PCUserInput>().AsCached().NonLazy();
 
+        SignalBusInstaller.Install(Container);
+
+        Container.DeclareSignal<PlayerHPChangedSignal>();
+        Container.DeclareSignal<PlayerDiedSignal>();
     }
 }

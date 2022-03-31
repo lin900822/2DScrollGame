@@ -54,5 +54,7 @@ public class EnemyModel
         public LayerMask TargetLayer = default;
         public float DetectTargetRadius = 5f;
         public float AttackDamage = 10f;
+
+        public GameObject deathEffectPrefab = null;
     }
 }
